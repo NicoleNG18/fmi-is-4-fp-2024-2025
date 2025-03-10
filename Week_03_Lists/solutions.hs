@@ -11,7 +11,6 @@ main = do
     print $ firstNPrimes2 10 -- [2,3,5,7,11,13,17,19,23,29]
 
 -- 0)
-
 remove_duplicates :: [Int] -> [Int]
 remove_duplicates [] = []
 remove_duplicates (x:xs) = x: remove_duplicates (remove x xs)
@@ -23,7 +22,7 @@ remove_duplicates (x:xs) = x: remove_duplicates (remove x xs)
 
             отново се извинявам за бъгването :)
         -}    
-        remove x (y:ys) = if x == y then removed else (y : removed)
+        remove x (y:ys) = if x == y then removed else y : removed
             where
                 removed = remove x ys
 
