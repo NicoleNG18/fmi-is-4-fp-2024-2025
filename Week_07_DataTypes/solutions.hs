@@ -3,42 +3,47 @@ main = do
     -- print $ area (Circle 5.0)
     -- print $ area (Rectangle 2.0 5.0)
     -- print $ map area [Circle 5.0, Rectangle 2.0 5.0]
-    print $ isWorkingDay Friday
-    print $ isWorkingDay Saturday
+    -- print $ isWorkingDay Friday
+    -- print $ isWorkingDay Saturday
     
-    print $ findTotalBooks lib
-    print $ takeAuthorsByGenre Novel lib
+    -- print $ findTotalBooks lib
+    -- print $ takeAuthorsByGenre Novel lib
     
-    print $ calcBinom (Binom 5 0)
-    print $ calcBinom (Binom 5 1)
-    print $ calcBinom (Binom 5 5)
-    print $ calcBinom (Binom 5 2)
+    -- print $ calcBinom (Binom 5 0)
+    -- print $ calcBinom (Binom 5 1)
+    -- print $ calcBinom (Binom 5 5)
+    -- print $ calcBinom (Binom 5 2)
     
-    print $ calcNat Zero
-    print $ calcNat (Succ Zero)
-    print $ calcNat (Succ (Succ (Succ (Succ Zero))))
-    print $ sumNat (Zero) (Succ Zero)
-    print $ sumNat (Succ Zero) (Succ Zero)
-    print $ sumNat (Succ (Succ Zero)) (Succ Zero)
-    print $ prodNat (Zero) (Succ Zero)
-    print $ prodNat (Succ Zero) (Succ Zero)
-    print $ prodNat (Succ (Succ (Succ Zero))) (Succ (Succ Zero))
+    -- print $ calcNat Zero
+    -- print $ calcNat (Succ Zero)
+    -- print $ calcNat (Succ (Succ (Succ (Succ Zero))))
+    -- print $ sumNat (Zero) (Succ Zero)
+    -- print $ sumNat (Succ Zero) (Succ Zero)
+    -- print $ sumNat (Succ (Succ Zero)) (Succ Zero)
+    -- print $ prodNat (Zero) (Succ Zero)
+    -- print $ prodNat (Succ Zero) (Succ Zero)
+    -- print $ prodNat (Succ (Succ (Succ Zero))) (Succ (Succ Zero))
 
-    print $ depth bTree
-    print $ depth Nil
-    print $ depth (Node 5 Nil Nil)
+    -- print $ depth bTree
+    -- print $ depth Nil
+    -- print $ depth (Node 5 Nil Nil)
 
-    print $ nNodes bTree
-    print $ nNodes Nil
-    print $ nNodes (Node 5 Nil Nil)
+    -- print $ nNodes bTree
+    -- print $ nNodes Nil
+    -- print $ nNodes (Node 5 Nil Nil)
 
-    print $ nLeaves bTree
-    print $ nLeaves Nil
-    print $ nLeaves (Node 5 Nil Nil)
+    -- print $ nLeaves bTree
+    -- print $ nLeaves Nil
+    -- print $ nLeaves (Node 5 Nil Nil)
 
-    print $ sumTree bTree
+    -- print $ mapTree (+1) bTree
+    -- print $ mapTree (*2) bTree
+
+    -- print $ sumTree bTree
     print $ inOrderTraversal bTree
-    print $ inOrderTraversal2 bTree
+    print $ preOrderTraversal bTree
+    print $ postOrderTraversal bTree
+    -- print $ inOrderTraversal2 bTree
 
 -- in class notes
 
@@ -141,6 +146,7 @@ prodNat x y = helper x valY
 
 -- 5)
 data BTree = Nil | Node Int BTree BTree
+    deriving Show
 
 bTree :: BTree
 bTree = (Node 5 (Node 3 (Node 1 Nil Nil)
@@ -178,12 +184,27 @@ foldTree f defVal (Node val left right) = f val leftVal rightVal
 sumTree :: BTree -> Int
 sumTree = foldTree (\ val left right -> val + left + right) 0
 
-inOrderTraversal :: BTree -> [Int]
+inOrderTraversal :: BTree -> [Int]  -- left-root-right
 inOrderTraversal Nil = []
 inOrderTraversal (Node val left right) = leftt ++ [val] ++ rightt
     where
         leftt  = inOrderTraversal  left
         rightt = inOrderTraversal right
+
+preOrderTraversal :: BTree -> [Int]  -- root-left-right
+preOrderTraversal Nil = []
+preOrderTraversal (Node val left right) = [val] ++ leftt ++ rightt
+    where
+        leftt  = preOrderTraversal  left
+        rightt = preOrderTraversal right
+
+
+postOrderTraversal :: BTree -> [Int]  -- left right root
+postOrderTraversal Nil = []
+postOrderTraversal (Node val left right) = leftt ++ rightt ++ [val]
+    where
+        leftt  = postOrderTraversal  left
+        rightt = postOrderTraversal right
 
 inOrderTraversal2 :: BTree -> [Int]
 inOrderTraversal2 = foldTree (\val left right -> left ++ [val] ++ right) []
