@@ -17,8 +17,8 @@ main = do
     print $ consecutiveSums [1,2]
     print $ consecutiveSums [1,5,3,4,2]
 
-    print $ (foldl (.) id [(*3), (^5)]) 3
-    print $ (foldr (.) id [(*3), (^5)]) 3
+    -- print $ (foldl (.) id $ reverse [(*3), (^5)]) 3
+    -- print $ (foldr (.) id [(*3), (^5)]) 3
 
 -- 1)
 expKthTerm :: Int -> Double -> Double
@@ -45,8 +45,8 @@ alternatingMap fns xs = zipWith ($) (cycle fns) xs
 funnyComposition :: [(Int -> Int)] -> Int -> Int
 funnyComposition funcs x = (if even x then odds else evens) x
     where
-        odds = foldr (.) id [f | (f, idx) <- zip funcs [1..], odd idx]
-        evens = foldr (.) id [f | (f, idx) <- zip funcs [1..], even idx]
+        odds = foldr (.) id $ reverse [f | (f, idx) <- zip funcs [1..], odd idx]
+        evens = foldr (.) id $ reverse [f | (f, idx) <- zip funcs [1..], even idx]
 
 
 -- 28.4
