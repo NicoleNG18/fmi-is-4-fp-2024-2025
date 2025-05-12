@@ -44,7 +44,10 @@ cummulativeSums [] = []
 cummulativeSums (x:xs) = x : zipWith (+) (cummulativeSums (x:xs)) xs
 -- 28.4
 -- addNeighbours (x:xs) = zipWith (+) (x:xs) xs
-
+-- [1,2,3] -> [1,3,6]
+prefixSums :: [Int] -> [Int]
+prefixSums [] = []
+prefixSums (x:xs) = x:(prefixSums $ map (+x) xs)
 
 -- 29.2
 createfn :: Eq a => [(a, b)] -> a -> b
